@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About</title>
+    
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            text-align: center;
+            background-color: #8f2727;
+            margin: 0;
+            padding: 0;
+            transition: all 0.3s ease;
+        }
+
+        nav {
+            background-color: #000000;
+            padding: 10px 15px;
+            width: 100%;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+            box-sizing: border-box;
+        }
+        
+        .logo {
+            font-weight: bold;
+            font-size: 20px;
+            color: white;
+            text-decoration: none;
+            letter-spacing: 1px;
+        }
+
+        .menu {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-grow: 1;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            margin: 0 15px;
+            font-size: 16px;
+            font-weight: 500;
+            letter-spacing: 0.5px;
+            transition: all 0.2s ease;
+        }
+
+        nav a:hover {
+            color: rgb(0, 66, 231);
+            transform: translateY(-2px);
+        }
+
+        .dark-mode-toggle {
+            background: #ddd;
+            border: none;
+            padding: 0;
+            cursor: pointer;
+            border-radius: 10px;
+            transition: all 0.3s;
+            width: 24px;
+            height: 12px;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        }
+
+        .dark-mode-toggle::after {
+            content: '';
+            position: absolute;
+            top: 2px;
+            left: 2px;
+            width: 8px;
+            height: 8px;
+            background: white;
+            border-radius: 50%;
+            transition: all 0.3s ease;
+            box-shadow: 0 1px 2px rgba(0,0,0,0.2);
+        }
+
+        .dark-mode-toggle:hover {
+            background: #ccc;
+        }
+
+        .dark-mode {
+            background-color: #121212;
+            color: white;
+        }
+
+        .dark-mode nav {
+            background-color: #000000;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.5);
+        }
+
+        .dark-mode .dark-mode-toggle {
+            background: #666;
+            position: absolute;
+            right: 20px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.3);
+        }
+
+        .dark-mode .dark-mode-toggle::after {
+            left: 14px;
+            background: #fff;
+        }
+
+        .dark-mode .dark-mode-toggle:hover {
+            background: #777;
+        }
+
+        .dark-mode .profile-container p,
+        .dark-mode .social-links a {
+            color: white;
+        }
+
+        .profile-container {
+            margin: 40px auto;
+            text-align: center;
+            max-width: 900px;
+            padding: 0 20px;
+            display: flex;
+            flex-wrap: wrap;
+            align-items: flex-start;
+            justify-content: center;
+            position: relative;
+        }
+
+        .profile-container img {
+            width: 350px;
+            height: 500px;
+            border-radius: 8px;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+            transition: transform 0.3s ease;
+            margin-right: 30px;
+            object-fit: cover;
+        }
+
+        .profile-container img:hover {
+            transform: scale(1.02);
+        }
+
+        .profile-container h2 {
+            position: absolute;
+            top: 170px;
+            right: 600px;
+            color: white;
+            background: rgba(0, 0, 0, 0.6);
+            padding: 10px 20px;
+            display: inline-block;
+            border-radius: 8px;
+            font-weight: 400;
+            font-size: medium;
+            letter-spacing: 0.5px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+            margin: 0;
+        }
+
+        .profile-content {
+            flex: 1;
+            text-align: left;
+            min-width: 300px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .profile-container p {
+            margin-top: 170px;
+            line-height: 1.6;
+            font-size: 16px;
+            color: #f0f0f0;
+            margin-bottom: 20px;
+        }
+
+        .social-links {
+            margin: 0;
+            text-align: left;
+        }
+
+        .social-links a {
+            display: inline-block;
+            margin: 0 10px 0 0;
+            font-size: 15px;
+            text-decoration: none;
+            color: #f0f0f0;
+            background: rgba(0, 0, 0, 0.3);
+            padding: 8px 15px;
+            border-radius: 20px;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+        }
+
+        .social-links a:hover {
+            background: rgba(0, 0, 0, 0.5);
+            transform: translateY(-3px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+        }
+
+    </style>
+</head>
+<body>
+    <nav>
+        <a href="#" class="logo">Batman</a>
+        <div class="menu">
+            <a href="home.html">Home</a>
+            <a href="about.html">About</a>
+            <a href="gallery.html">Gallery</a>
+        </div>
+        <button class="dark-mode-toggle" onclick="toggleDarkMode()"></button>
+    </nav>
+
+    <div class="profile-container">
+        <img src="pictures\a.jpg" alt="Pranjwol Regmi">
+        <h2>Pranjwol Regmi</h2>
+        <div class="profile-content">
+            <p>They think I'm hiding in the shadows, but I am the Shadow.</p>
+            <div class="social-links">
+                <a href="https://www.linkedin.com/in/pranjwol-regmi-359555282/" target="_blank">LinkedIn</a>
+                <a href="https://github.com/pranjwol" target="_blank">GitHub</a>
+                <a href="https://www.instagram.com/pranjwol_" target="_blank">Instagram</a>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function toggleDarkMode() {
+            document.body.classList.toggle("dark-mode");
+
+            if (document.body.classList.contains("dark-mode")) {
+                localStorage.setItem("darkMode", "enabled");
+            } else {
+                localStorage.setItem("darkMode", "disabled");
+            }
+        }
+
+        if (localStorage.getItem("darkMode") === "enabled") {
+            document.body.classList.add("dark-mode");
+        }
+    </script>
+</body>
+</html>

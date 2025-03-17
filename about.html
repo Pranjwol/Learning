@@ -54,8 +54,39 @@
             transition: all 0.2s ease;
         }
 
-        nav a:hover {
-            color: rgb(0, 66, 231);
+        .menu a:hover {
+            color: rgb(0, 35, 234);
+            transform: translateY(-2px);
+        }
+
+        .highlight {
+            transition: all 0.3s ease;
+            cursor: pointer;
+            display: inline-block;
+        }
+
+        .highlight:hover {
+            color: #4f4067;
+            transform: translateY(-2px);
+            text-shadow: 0 2px 4px rgba(0,0,0,0.2);
+        }
+
+        .download-resume {
+            background-color: #0073e6;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            font-size: 15px;
+            cursor: pointer;
+            border-radius: 25px;
+            margin-top: 15px;
+            transition: all 0.2s ease;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .download-resume:hover {
+            background-color: #005bb5;
             transform: translateY(-2px);
         }
 
@@ -204,6 +235,33 @@
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
         }
 
+        textarea {
+        width: 90%;
+        padding: 10px;
+        margin: 8px 0;
+        border: 1px solid #e0e0e0;
+        border-radius: 6px;
+        font-size: 14px;
+        transition: all 0.2s ease;
+        font-family: inherit;
+        }
+
+        textarea:focus {
+            outline: none;
+            border-color: #990000;
+            box-shadow: 0 0 0 2px rgba(153, 0, 0, 0.1);
+        }
+
+        .dark-mode textarea {
+            background: #333;
+            color: white;
+            border: 1px solid #444;
+        }
+
+        .dark-mode textarea:focus {
+            border-color: #666;
+            box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.1);
+        }
     </style>
 </head>
 <body>
@@ -218,17 +276,26 @@
     </nav>
 
     <div class="profile-container">
-        <img src="pictures\a.jpg" alt="Pranjwol Regmi">
+        <img src="pictures\a.jpg" alt="Pranjwol">
         <h2>Pranjwol Regmi</h2>
         <div class="profile-content">
-            <p>They think I'm hiding in the shadows, but I am the Shadow.</p>
-            <div class="social-links">
-                <a href="https://www.linkedin.com/in/pranjwol-regmi-359555282/" target="_blank">LinkedIn</a>
-                <a href="https://github.com/pranjwol" target="_blank">GitHub</a>
-                <a href="https://www.instagram.com/pranjwol_" target="_blank">Instagram</a>
-            </div>
+            <p>They think I'm hiding in the shadows, but I am the <span class="highlight">Shadow</span>.</p>
+        <div class="social-links">
+            <a href="https://www.linkedin.com/in/pranjwol-regmi-359555282/" target="_blank">LinkedIn</a>
+            <a href="https://github.com/pranjwol" target="_blank">GitHub</a>
+            <a href="https://www.instagram.com/pranjwol_" target="_blank">Instagram</a>
+            <a href="D:\Pranjwol\Learning\docs\Importance of Communication for IT professionals.pptx" class="download-resume" download>Download</a>
+        <div class="login-container" style="margin-top: 30px;">
+            <form>
+                <input type="text" placeholder="Name" required>
+                <input type="email" placeholder="Email" required>
+                <textarea placeholder="Leave a Message"  required></textarea>
+                <button type="submit">Send</button>
+            </form>
         </div>
     </div>
+</div>
+</div>
 
     <script>
         function toggleDarkMode() {
@@ -244,6 +311,15 @@
         if (localStorage.getItem("darkMode") === "enabled") {
             document.body.classList.add("dark-mode");
         }
+
+        document.querySelector('.download-resume').addEventListener('click', function(e) {
+        e.preventDefault();
+        this.style.transform = 'scale(0.95)';
+        setTimeout(() => {
+            this.style.transform = 'scale(1)';
+            window.location.href = this.href;
+        }, 200);
+    });
     </script>
 </body>
 </html>

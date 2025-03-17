@@ -52,8 +52,8 @@
             transition: all 0.2s ease;
         }
 
-        nav a:hover {
-            color: rgb(0, 32, 216);
+        .menu a:hover {
+            color: rgb(0, 35, 234);
             transform: translateY(-2px);
         }
 
@@ -64,7 +64,7 @@
             cursor: pointer;
             border-radius: 10px;
             transition: all 0.3s;
-            width: 24px;
+            width: 28px;
             height: 12px;
             position: relative;
             overflow: hidden;
@@ -173,6 +173,93 @@
             filter: brightness(0.9);
         }
 
+        .lightbox {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.9);
+        z-index: 1000;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .lightbox.active {
+        display: flex;
+    }
+
+    .lightbox-content {
+        position: relative;
+        max-width: 90%;
+        max-height: 90%;
+    }
+
+    .lightbox-img {
+        max-height: 80vh;
+        border-radius: 8px;
+    }
+
+    .lightbox-btn {
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        background: rgba(255, 255, 255, 0.2);
+        border: none;
+        color: white;
+        padding: 15px;
+        cursor: pointer;
+        border-radius: 50%;
+        transition: all 0.3s ease;
+    }
+
+    .lightbox-btn:hover {
+        background: rgba(255, 255, 255, 0.3);
+    }
+
+    .prev {
+        left: 20px;
+    }
+
+    .next {
+        right: 20px;
+    }
+
+    .close {
+        position: absolute;
+        top: 20px;
+        right: 20px;
+        font-size: 30px;
+        color: white;
+        cursor: pointer;
+    }
+
+    .load-more {
+        background-color: #0073e6;
+        color: white;
+        border: none;
+        padding: 12px 30px;
+        font-size: 16px;
+        cursor: pointer;
+        border-radius: 25px;
+        margin: 20px 0;
+        transition: all 0.3s ease;
+    }
+
+    .load-more:hover {
+        background-color: #005bb5;
+        transform: translateY(-2px);
+    }
+
+    .dark-mode .load-more {
+        background-color: #ff6f61;
+    }
+
+    .dark-mode .load-more:hover {
+        background-color: #e65a50;
+    }
+
         @media (max-width: 768px) {
             .gallery-container {
                 grid-template-columns: repeat(2, 1fr);
@@ -206,22 +293,94 @@
         <img src="pictures\e.jpg">
         <img src="pictures\f.jpg">
         <img src="pictures\g.jpg">
+        <img src="pictures\h.jpg">
+        <img src="pictures\i.jpg">
+        <img src="pictures\j.jpg">
+        <img src="pictures\k.jpg">
+        <img src="pictures\l.jpg">
+        <img src="pictures\m.jpg">
+    </div>
+
+    <button class="load-more" onclick="toggleImages()">Load More</button>
+
+    <div class="lightbox">
+        <span class="close">&times;</span>
+        <button class="lightbox-btn prev">❮</button>
+        <button class="lightbox-btn next">❯</button>
+        <div class="lightbox-content">
+            <img class="lightbox-img" src="" alt="Enlarged view">
+        </div>
     </div>
 
     <script>
         function toggleDarkMode() {
-            document.body.classList.toggle("dark-mode");
+        document.body.classList.toggle("dark-mode");
+        localStorage.setItem("darkMode", document.body.classList.contains("dark-mode") ? "enabled" : "disabled");
+    }
 
-            if (document.body.classList.contains("dark-mode")) {
-                localStorage.setItem("darkMode", "enabled");
-            } else {
-                localStorage.setItem("darkMode", "disabled");
-            }
-        }
+    if (localStorage.getItem("darkMode") === "enabled") {
+        document.body.classList.add("dark-mode");
+    }
 
-        if (localStorage.getItem("darkMode") === "enabled") {
-            document.body.classList.add("dark-mode");
+    // Lightbox functionality
+    let currentIndex = 0;
+    let images = [];
+
+    function initLightbox() {
+        images = document.querySelectorAll('.gallery-container img');
+        images.forEach((img, index) => {
+            img.onclick = () => {
+                currentIndex = index;
+                updateLightbox();
+                lightbox.classList.add('active');
+            };
+        });
+    }
+
+    function updateLightbox() {
+        lightboxImg.src = images[currentIndex].src;
+    }
+
+    const lightbox = document.querySelector('.lightbox');
+    const lightboxImg = document.querySelector('.lightbox-img');
+    const closeBtn = document.querySelector('.close');
+    const prevBtn = document.querySelector('.prev');
+    const nextBtn = document.querySelector('.next');
+
+    prevBtn.onclick = () => {
+        currentIndex = (currentIndex - 1 + images.length) % images.length;
+        updateLightbox();
+    };
+
+    nextBtn.onclick = () => {
+        currentIndex = (currentIndex + 1) % images.length;
+        updateLightbox();
+    };
+
+    closeBtn.onclick = () => lightbox.classList.remove('active');
+    lightbox.onclick = (e) => e.target === lightbox && lightbox.classList.remove('active');
+
+    // Load More functionality
+    const gallery = document.querySelector('.gallery-container');
+    const loadBtn = document.querySelector('.load-more');
+    const totalImages = 12;
+    let visibleImages = 6;
+
+    function toggleImages() {
+        visibleImages = visibleImages === 6 ? totalImages : 6;
+        loadBtn.textContent = visibleImages === 6 ? 'Load More' : 'Show Less';
+        
+        gallery.innerHTML = '';
+        for (let i = 0; i < visibleImages; i++) {
+            const img = document.createElement('img');
+            img.src = `pictures/${String.fromCharCode(98 + i)}.jpg`;
+            gallery.appendChild(img);
         }
+        initLightbox(); // Reinitialize after loading new images
+    }
+
+    // Initial setup
+    toggleImages();
     </script>
 </body>
 </html>

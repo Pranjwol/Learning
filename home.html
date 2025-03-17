@@ -39,7 +39,6 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            flex-grow: 1;
         }
 
         nav a {
@@ -52,7 +51,7 @@
             transition: all 0.2s ease;
         }
 
-        nav a:hover {
+        .menu a:hover {
             color: rgb(0, 35, 234);
             transform: translateY(-2px);
         }
@@ -66,9 +65,22 @@
             transition: all 0.3s;
             width: 24px;
             height: 12px;
-            position: relative;
             overflow: hidden;
             box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        }
+
+        .register {
+            background-color: #c72e00;
+            color: white;
+            border: none;
+            padding: 10px;
+            width: 100px;
+            font-size: 15px;
+            font-weight: 500;
+            cursor: pointer;
+            border-radius: 25px;
+            margin-top: 15px;
+            transition: all 0.2s ease;
         }
 
         .dark-mode-toggle::after {
@@ -197,8 +209,6 @@
 
         .dark-mode .dark-mode-toggle {
             background: #666;
-            position: absolute;
-            right: 20px;
             box-shadow: 0 1px 3px rgba(0,0,0,0.3);
         }
 
@@ -214,18 +224,32 @@
         .dark-mode button {
             box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
         }
+        .navbar{
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .random{
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            gap: 20px;
+        }
     </style>
 </head>
 <body>
 
-    <nav>
+    <nav class="navbar">
         <a href="#" class="logo">Batman</a>
         <div class="menu">
             <a href="home.html">Home</a>
             <a href="about.html">About</a>
             <a href="gallery.html">Gallery</a>
         </div>
-        <button class="dark-mode-toggle" onclick="toggleDarkMode()"></button>
+        <div class="random">
+            <button class="register" onclick="toggleForm()">Sign Up</button>
+            <button class="dark-mode-toggle" onclick="toggleDarkMode()"></button>
+        </div>
     </nav>
 
     <div class="login-container">
@@ -237,6 +261,21 @@
                 <input type="checkbox" onclick="togglePassword()"> Show Password
             </label>
             <button type="submit">Login</button>
+        </form>
+    </div>
+
+    <div class="login-container" id="registration-form" style="display: none;">
+        <h2>Register</h2>
+        <form>
+            <input type="text" placeholder="First Name" required>
+            <input type="text" placeholder="Last Name" required>
+            <input type="email" placeholder="Enter your email" required>
+            <input type="password" id="reg-password" placeholder="Create password" required>
+            <input type="password" id="confirm-password" placeholder="Confirm password" required>
+            <label class="show-password">
+                <input type="checkbox" onclick="toggleRegPassword()"> Show Password
+            </label>
+            <button type="submit">Register</button>
         </form>
     </div>
 
@@ -263,6 +302,32 @@
         if (localStorage.getItem("darkMode") === "enabled") {
             document.body.classList.add("dark-mode");
         }
+
+        function toggleForm() {
+        const loginForm = document.querySelector('.login-container');
+        const regForm = document.getElementById('registration-form');
+        
+        if (loginForm.style.display === 'none') {
+            loginForm.style.display = 'block';
+            regForm.style.display = 'none';
+        } else {
+            loginForm.style.display = 'none';
+            regForm.style.display = 'block';
+        }
+    }
+
+    function toggleRegPassword() {
+        const passwordField = document.getElementById("reg-password");
+        const confirmField = document.getElementById("confirm-password");
+        
+        if (passwordField.type === "password") {
+            passwordField.type = "text";
+            confirmField.type = "text";
+        } else {
+            passwordField.type = "password";
+            confirmField.type = "password";
+        }
+    }
     </script>
 
 </body>
